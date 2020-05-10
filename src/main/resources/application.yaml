@@ -1,0 +1,11 @@
+spring:
+  data:
+    web:
+      pageable:
+        default-page-size: 30
+        max-page-size: 50
+    mongodb:
+      host: localhost
+      port: 27017
+      uri: mongodb://localhost/dnipro
+      repositories.enabled: true
