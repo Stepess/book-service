@@ -9,3 +9,4 @@ spring:
       port: 27017
       uri: mongodb://localhost/dnipro
       repositories.enabled: true
+      auto-index-creation: true

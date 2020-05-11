@@ -9,6 +9,7 @@ import ua.micro.bookservice.persistence.entity.Author;
 import ua.micro.bookservice.persistence.entity.Book;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -31,6 +32,9 @@ class BookRepositoryIntegrationTest {
                 .description("Awesome book about testing")
                 .price(new BigDecimal("42.13"))
                 .author(author)
+                .tags(List.of("bestseller"))
+                .genres(List.of("kek", "lol"))
+                .quantity(11L)
                 .build();
 
         var savedBook = repository.save(book);

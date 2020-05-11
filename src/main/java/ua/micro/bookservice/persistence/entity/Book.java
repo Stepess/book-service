@@ -23,6 +23,7 @@ public class Book {
     @TextIndexed(weight = 1.f)
     private String description;
     private BigDecimal price;
+    private Long quantity;
     @Singular
     private List<Author> authors;
     private List<String> genres;
