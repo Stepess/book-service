@@ -10,3 +10,12 @@ spring:
       uri: mongodb://localhost/dnipro
       repositories.enabled: true
       auto-index-creation: true
+
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter:  DEBUG

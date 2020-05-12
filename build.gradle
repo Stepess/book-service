@@ -50,7 +50,9 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
-	testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
+
+	testCompile group: 'org.mockito', name: 'mockito-core'
+	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 	testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
 }
 
@@ -62,7 +64,9 @@ dependencyManagement {
 
 contracts {
 	testFramework = TestFramework.JUNIT5
+	testMode = 'MockMvc'
 	failOnNoContracts = false
+	baseClassForTests = 'ua.micro.bookservice.contract.BaseContractTestClass'
 }
 
 test {
