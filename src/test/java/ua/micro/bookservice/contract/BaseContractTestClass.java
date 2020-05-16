@@ -18,6 +18,7 @@ import ua.micro.bookservice.web.BookController;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -54,6 +55,26 @@ public class BaseContractTestClass {
                 .build();
 
         when(catalogService.findById(expectedId)).thenReturn(book);
+
+        doNothing().when(catalogService).deleteById(expectedId);
+
+        var bookToSave = Book.builder()
+                .title("Test Book")
+                .description("Awesome book about testing")
+                .price(new BigDecimal("42.13"))
+                .author(author)
+                .tags(List.of("bestseller"))
+                .genres(List.of("kek", "lol"))
+                .quantity(11L)
+                .build();
+
+        when(catalogService.add(bookToSave)).thenAnswer((invocation) -> {
+            var savedBook = (Book) invocation.getArgument(0);
+            savedBook.setId(expectedId);
+            return savedBook;
+        });
+
+        when(catalogService.findByTitle("Test Book")).thenReturn(book);
     }
 
 }
