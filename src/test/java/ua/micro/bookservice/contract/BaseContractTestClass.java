@@ -3,14 +3,12 @@ package ua.micro.bookservice.contract;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 import ua.micro.bookservice.persistence.entity.Author;
@@ -25,15 +23,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-@DirtiesContext
+@ExtendWith({MockitoExtension.class})
 public class BaseContractTestClass {
 
-    @Autowired
+    @InjectMocks
     private BookController bookController;
 
-    @MockBean
+    @Mock(lenient = true)
     private CatalogService catalogService;
 
     @BeforeEach
@@ -43,6 +39,10 @@ public class BaseContractTestClass {
                 .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver());
         RestAssuredMockMvc.standaloneSetup(standaloneMockMvcBuilder);
 
+        setupMockBehaviour();
+    }
+
+    private void setupMockBehaviour() {
         var author = new Author();
         author.setFirstName("Stepan");
         author.setLastName("Yershov");
@@ -59,10 +59,6 @@ public class BaseContractTestClass {
                 .quantity(11L)
                 .build();
 
-        when(catalogService.findById(expectedId)).thenReturn(book);
-
-        doNothing().when(catalogService).deleteById(expectedId);
-
         var bookToSave = Book.builder()
                 .title("Test Book")
                 .description("Awesome book about testing")
@@ -72,6 +68,10 @@ public class BaseContractTestClass {
                 .genres(List.of("kek", "lol"))
                 .quantity(11L)
                 .build();
+
+        when(catalogService.findById(expectedId)).thenReturn(book);
+
+        doNothing().when(catalogService).deleteById(expectedId);
 
         when(catalogService.add(bookToSave)).thenAnswer(invocation -> {
             var savedBook = (Book) invocation.getArgument(0);
