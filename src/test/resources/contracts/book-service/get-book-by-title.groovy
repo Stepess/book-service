@@ -1,7 +1,7 @@
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
-    description "should return book by id"
+    description "should return book by title"
 
     title = "Test Book"
 
