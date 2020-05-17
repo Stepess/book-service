@@ -11,6 +11,8 @@ spring:
       repositories.enabled: true
       auto-index-creation: true
 
+  jmx:
+    enabled: false
 
 logging:
   level:
