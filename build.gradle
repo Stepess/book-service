@@ -44,15 +44,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
 
-	testCompile group: 'org.mockito', name: 'mockito-core'
-	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+	testImplementation group: 'org.mockito', name: 'mockito-core'
 	testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
 }
 
@@ -64,8 +62,6 @@ dependencyManagement {
 
 contracts {
 	testFramework = TestFramework.JUNIT5
-	testMode = 'MockMvc'
-	failOnNoContracts = false
 	baseClassForTests = 'ua.micro.bookservice.contract.BaseContractTestClass'
 }
 
