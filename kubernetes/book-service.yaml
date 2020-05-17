@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: book-service
+  labels:
+    app: book-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: book-service
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-service
+spec:
+  selector:
+    matchLabels:
+      app: book-service
+  template:
+    metadata:
+      labels:
+        app: book-service
+    spec:
+      containers:
+        - image: book-service:0.0.1
+          imagePullPolicy: Never # remove for not local k8s
+          name: book-service
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+          ports:
+            - containerPort: 8080
