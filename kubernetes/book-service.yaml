@@ -27,8 +27,7 @@ spec:
         app: book-service
     spec:
       containers:
-        - image: book-service:0.0.1
-          imagePullPolicy: Never # remove for not local k8s
+        - image: gcr.io/dnipro-store/book-service:0.0.1
           name: book-service
           env:
             - name: SPRING_PROFILES_ACTIVE
