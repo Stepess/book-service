@@ -6,6 +6,6 @@ spring:
         max-page-size: 50
     mongodb:
       port: 27017
-      uri: mongodb://mongo/dnipro
+      uri: mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo/dnipro
       repositories.enabled: true
       auto-index-creation: true
