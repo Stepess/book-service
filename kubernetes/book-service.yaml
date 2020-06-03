@@ -27,7 +27,7 @@ spec:
         app: book-service
     spec:
       containers:
-        - image: gcr.io/dnipro-store/book-service:0.0.1
+        - image: gcr.io/dnipro-store/book-service:0.0.2
           name: book-service
           env:
             - name: SPRING_PROFILES_ACTIVE
