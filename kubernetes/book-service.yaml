@@ -18,6 +18,7 @@ kind: Deployment
 metadata:
   name: book-service
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: book-service
@@ -27,7 +28,7 @@ spec:
         app: book-service
     spec:
       containers:
-        - image: gcr.io/dnipro-store/book-service:0.0.2
+        - image: gcr.io/dnipro-store/book-service:0.0.3
           name: book-service
           env:
             - name: SPRING_PROFILES_ACTIVE
